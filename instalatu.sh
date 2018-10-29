@@ -1,7 +1,5 @@
 #!/bin/bash
 APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=yes
-RED='\033[0;31m'
-NC='\033[0m' # No Color
 
 echo -e '\033[0;31m \t\t┌────────────────────────────┐
 \t\t│▛▀▖     ▌▗    ▞▀▖▜         ▌│
