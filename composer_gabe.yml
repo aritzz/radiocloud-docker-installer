@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  web:
+    build: web
+    container_name: radiocloud_web
+    volumes:
+      - '/opt/radiocloud/web:/var/www/html'
+      - '/opt/radiocloud/logs/web:/var/log/apache2'
+    environment:
+      - HOST=mysql
+    ports:
+      - '80:80'
+  mysql:
+    image: mysql
+    container_name: radiocloud_db
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - '/opt/radiocloud/db:/var/lib/mysql'
+      - '/opt/radiocloud/logs/db:/var/log/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=radiocloud
+      - MYSQL_USER=radiocloud
+      - MYSQL_PASSWORD=radiocloud
+    ports:
+      - '3306:3306'
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: radiocloud_pma
+    links:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    volumes:
+      - /sessions
+    ports:
+      - '8080:80'
+  daemon:
+    build: daemon
+    container_name: radiocloud_daemon
+    volumes:
+     - '/opt/radiocloud/emisioa:/emisioa'
+     - '/opt/radiocloud/web/tmp_podcast:/var/www/tmp_podcast'
+    links:
+      - mysql
+    depends_on:
+      - mysql
