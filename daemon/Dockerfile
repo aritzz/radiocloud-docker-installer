@@ -6,7 +6,7 @@ MAINTAINER Aritz <aritz@radixu.info>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-apt-get install -y libmariadb-dev libmariadbclient-dev libxml2-dev gstreamer1.0-dev libcurl4-openssl-dev build-essential make libgstreamer-plugins* tar bash php-cli php-xml php-curl php-mysql nano
+apt-get install -y default-libmysqld-dev default-libmysqlclient-dev libxml2-dev gstreamer1.0-dev libcurl4-openssl-dev build-essential make libgstreamer-plugins* tar bash php-cli php-xml php-curl php-mysql nano
 
 ADD https://github.com/aritzz/radiocloud-daemon/archive/1.2.tar.gz /
 RUN tar -zxf /1.2.tar.gz &&cd /radiocloud-daemon-1.2 && make
